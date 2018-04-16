@@ -48,5 +48,24 @@ namespace ACM.Library.Test
 
             Assert.IsNotNull(stringSequence);
         }
+
+        [TestMethod()]
+        public void CompareSequencesTest()
+        {
+            //Arrange
+            Builder listBuilder = new Builder();
+
+            //Act
+            var intersectSequence = listBuilder.CompareSequences();
+
+            //Analyze
+            foreach (var item in intersectSequence)
+            {
+                TestContext.WriteLine(item.ToString());
+            }
+
+            //Assert
+            Assert.IsNotNull(intersectSequence);
+        }
     }
 }
