@@ -12,39 +12,8 @@ namespace ACM.BL
         {
             Customer foundCustomer = null;
 
-            //foreach (var c in customerList)
-            //{
-            //    if (c.CustomerId == customerId)
-            //    {
-            //        foundCustomer = c;
-            //        break;
-            //    }
-            //}
-
-            //var query = from c in customerList
-            //            where c.CustomerId == customerId
-            //            select c;
-
-            //foundCustomer = query.First();
-
             foundCustomer = customerList.FirstOrDefault(c =>
                                 c.CustomerId == customerId);
-
-            //foundCustomer = customerList.FirstOrDefault(c =>
-            //                {
-            //                    Debug.WriteLine(c.LastName);
-            //                    return c.CustomerId == customerId;
-            //                });
-
-            //foundCustomer = customerList.Where(c =>
-            //                    c.CustomerId == customerId)
-            //                    .Skip(1)
-            //                    .FirstOrDefault();
-
-            //foundCustomer = customerList.Where(c =>
-            //                    c.CustomerId == customerId)
-            //                    .Skip(1)
-            //                    .FirstOrDefault();
 
             return foundCustomer;
 
@@ -53,31 +22,56 @@ namespace ACM.BL
         public List<Customer> Retrieve()
         {
             List<Customer> custList = new List<Customer>
-                    {new Customer() 
-                          { CustomerId = 1, 
+                    {new Customer()
+                          { CustomerId = 1,
                             FirstName="Frodo",
                             LastName = "Baggins",
                             EmailAddress = "fb@hob.me",
                             CustomerTypeId=1},
-                    new Customer() 
-                          { CustomerId = 2, 
+                    new Customer()
+                          { CustomerId = 2,
                             FirstName="Bilbo",
                             LastName = "Baggins",
                             EmailAddress = "bb@hob.me",
                             CustomerTypeId=null},
-                    new Customer() 
-                          { CustomerId = 3, 
+                    new Customer()
+                          { CustomerId = 3,
                             FirstName="Samwise",
                             LastName = "Gamgee",
                             EmailAddress = "sg@hob.me",
                             CustomerTypeId=1},
-                    new Customer() 
-                          { CustomerId = 4, 
+                    new Customer()
+                          { CustomerId = 4,
                             FirstName="Rosie",
                             LastName = "Cotton",
                             EmailAddress = "rc@hob.me",
                             CustomerTypeId=2}};
             return custList;
         }
+
+        /// <summary>
+        /// Function will sort a list of type Customer by LastName and then FirstName.
+        /// </summary>
+        /// <param name="customerList"> list to sort.</param>
+        /// <returns>sorted listed by name.</returns>
+        public IEnumerable<Customer> SortByName(List<Customer> customerList) => customerList
+                                                                                .OrderBy(c => c.LastName)
+                                                                                .ThenBy(c => c.FirstName);
+        /// <summary>
+        /// Sort a list of type Cutomer by Last Name and First Name and then Reverse.
+        /// </summary>
+        /// <param name="customerList">List to sort</param>
+        /// <returns>Sorted List.</returns>
+        public IEnumerable<Customer> SortByNameInReverse(List<Customer> customerList) => SortByName(customerList)
+                                                                                        .Reverse();
+
+        /// <summary>
+        /// Sort a list of Cutomer type by CustomerTypeId
+        /// </summary>
+        /// <param name="customerList">list to sort</param>
+        /// <returns>sorted list.</returns>
+        public IEnumerable<Customer> SortByCustomerType(List<Customer> customerList) => customerList
+                                                                                        .OrderByDescending(c => c.CustomerTypeId.HasValue)
+                                                                                        .ThenBy(c => c.CustomerTypeId);
     }
 }
