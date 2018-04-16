@@ -50,6 +50,13 @@ namespace ACM.BL
         }
 
         /// <summary>
+        /// Returns just the names of the user in a Customer type list.
+        /// </summary>
+        /// <param name="customers">customer list.</param>
+        /// <returns></returns>
+        public IEnumerable<string> GetNames(List<Customer> customers) => customers.Select(c => $"{c.LastName}, {c.FirstName}");
+
+        /// <summary>
         /// Retrieves and empty list of Customer type.
         /// </summary>
         /// <returns></returns>

@@ -98,5 +98,25 @@ namespace ACM.BL.Test
             Assert.IsNotNull(sortedList);
             Assert.AreEqual(null, actual);
         }
+
+        [TestMethod()]
+        public void GetNamesTest()
+        {
+            //Arrange
+            CustomerRepository repository = new CustomerRepository();
+            var customerList = repository.Retrieve();
+
+            //Act
+            var namesList = repository.GetNames(customerList);
+            var actual = namesList.First();
+            var expected = "Baggins, Frodo";
+
+            //Analyze
+            TestContext.WriteLine(actual);
+
+            //Assert
+            Assert.IsNotNull(namesList);
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
