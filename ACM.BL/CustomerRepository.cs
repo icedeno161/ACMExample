@@ -50,6 +50,12 @@ namespace ACM.BL
         }
 
         /// <summary>
+        /// Retrieves and empty list of Customer type.
+        /// </summary>
+        /// <returns></returns>
+        public List<Customer> RetrieveEmptyList() => Enumerable.Repeat(new Customer(), 5).ToList();
+
+        /// <summary>
         /// Function will sort a list of type Customer by LastName and then FirstName.
         /// </summary>
         /// <param name="customerList"> list to sort.</param>
