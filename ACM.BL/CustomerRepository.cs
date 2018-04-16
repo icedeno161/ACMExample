@@ -64,7 +64,7 @@ namespace ACM.BL
                                                                                 .OrderBy(c => c.LastName)
                                                                                 .ThenBy(c => c.FirstName);
         /// <summary>
-        /// Sort a list of type Cutomer by Last Name and First Name and then Reverse.
+        /// Sort a list of type Customer by Last Name and First Name and then Reverse.
         /// </summary>
         /// <param name="customerList">List to sort</param>
         /// <returns>Sorted List.</returns>
@@ -72,7 +72,7 @@ namespace ACM.BL
                                                                                         .Reverse();
 
         /// <summary>
-        /// Sort a list of Cutomer type by CustomerTypeId
+        /// Sort a list of Customer type by CustomerTypeId
         /// </summary>
         /// <param name="customerList">list to sort</param>
         /// <returns>sorted list.</returns>

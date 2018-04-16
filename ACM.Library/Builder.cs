@@ -8,14 +8,14 @@ namespace ACM.Library
     public class Builder
     {
         /// <summary>
-        /// Returns an Inumerable sequence of integers.
+        /// Returns an Enumerable sequence of integers.
         /// </summary>
         /// <returns></returns>
         public IEnumerable<int> BuildIntegerSequence() => Enumerable.Range(0, 10)
                                                             .Select(i => 5 + (10 * i));
 
         /// <summary>
-        /// Returns a random Inumerable sequence of numbers.
+        /// Returns a random Enumerable sequence of numbers.
         /// </summary>
         /// <returns></returns>
         public IEnumerable<string> BuildStringSequence()
