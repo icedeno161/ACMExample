@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2037
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACM.BL", "ACM.BL\ACM.BL.csproj", "{21F6275E-6717-4FF9-BA26-627094C50E88}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{EB8363BE-E69E-4C88-A9E6-E663FBDF9830}"
@@ -10,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACM.Library", "ACM.Library\ACM.Library.csproj", "{B070B0BC-6992-438C-BF2F-447B8EC82F09}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACM.Library.Test", "ACM.Library.Test\ACM.Library.Test.csproj", "{E0A16B85-645B-4644-9466-2DC97AA4013B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8F22F913-941F-4BF1-B6DF-0CC2EEE5ECBA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,5 +44,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{E848B1DB-42FB-40B4-80F9-1421A2DF6913} = {EB8363BE-E69E-4C88-A9E6-E663FBDF9830}
 		{E0A16B85-645B-4644-9466-2DC97AA4013B} = {EB8363BE-E69E-4C88-A9E6-E663FBDF9830}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EDF3571F-12D1-414E-A665-048B80E5718B}
 	EndGlobalSection
 EndGlobal

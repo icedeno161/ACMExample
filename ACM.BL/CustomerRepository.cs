@@ -57,6 +57,26 @@ namespace ACM.BL
         public IEnumerable<string> GetNames(List<Customer> customers) => customers.Select(c => $"{c.LastName}, {c.FirstName}");
 
         /// <summary>
+        /// Returns a list of anonymous types.
+        /// </summary>
+        /// <param name="customers">list of customers.</param>
+        /// <returns></returns>
+        public dynamic GetNamesAndEmail(List<Customer> customers)
+        {
+            var query = customers.Select(c => new
+            {
+                FullName = $"{c.LastName}, {c.FirstName}",
+                c.EmailAddress
+            });
+
+            foreach (var item in query)
+            {
+                Console.WriteLine($"{item.FullName} : {item.EmailAddress}");
+            }
+
+            return query;
+        }
+        /// <summary>
         /// Retrieves and empty list of Customer type.
         /// </summary>
         /// <returns></returns>
@@ -86,5 +106,24 @@ namespace ACM.BL
         public IEnumerable<Customer> SortByCustomerType(List<Customer> customerList) => customerList
                                                                                         .OrderByDescending(c => c.CustomerTypeId.HasValue)
                                                                                         .ThenBy(c => c.CustomerTypeId);
+
+        public dynamic GetNamesAndType(List<Customer> customers, List<CustomerType> customerTypes)
+        {
+            var query = customers.Join(customerTypes, 
+                                    c => c.CustomerTypeId, 
+                                    ct => ct.CustomerTypeId, 
+                                    (c, ct) => new
+                                    {
+                                        Name = $"{c.LastName}, {c.FirstName}",
+                                        CustomerTypeName = ct.TypeName
+                                    });
+
+            foreach (var item in query)
+            {
+                Console.WriteLine($"{item.Name} : {item.CustomerTypeName}");
+            }
+
+            return query;
+        }
     }
 }
