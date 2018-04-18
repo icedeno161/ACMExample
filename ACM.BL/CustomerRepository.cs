@@ -10,6 +10,9 @@ namespace ACM.BL
     {
         public Customer Find(List<Customer> customerList, int customerId)
         {
+            if (customerList == null) { throw new ArgumentNullException(nameof(customerList), "customerList passed to Find() is null."); }
+            if (customerId < 0) { throw new ArgumentException(nameof(customerId), "customerId passed to Find() is not valid"); }
+
             Customer foundCustomer = null;
 
             foundCustomer = customerList.FirstOrDefault(c =>
@@ -76,6 +79,7 @@ namespace ACM.BL
 
             return query;
         }
+
         /// <summary>
         /// Retrieves and empty list of Customer type.
         /// </summary>
@@ -107,11 +111,17 @@ namespace ACM.BL
                                                                                         .OrderByDescending(c => c.CustomerTypeId.HasValue)
                                                                                         .ThenBy(c => c.CustomerTypeId);
 
+        /// <summary>
+        /// returns list of customer names and customerTypes.
+        /// </summary>
+        /// <param name="customers"></param>
+        /// <param name="customerTypes"></param>
+        /// <returns></returns>
         public dynamic GetNamesAndType(List<Customer> customers, List<CustomerType> customerTypes)
         {
-            var query = customers.Join(customerTypes, 
-                                    c => c.CustomerTypeId, 
-                                    ct => ct.CustomerTypeId, 
+            var query = customers.Join(customerTypes,
+                                    c => c.CustomerTypeId,
+                                    ct => ct.CustomerTypeId,
                                     (c, ct) => new
                                     {
                                         Name = $"{c.LastName}, {c.FirstName}",
