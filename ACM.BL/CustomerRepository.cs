@@ -24,31 +24,44 @@ namespace ACM.BL
 
         public List<Customer> Retrieve()
         {
+            InvoiceRepository invoiceRepository = new InvoiceRepository();
+
             List<Customer> custList = new List<Customer>
                     {new Customer()
                           { CustomerId = 1,
                             FirstName="Frodo",
                             LastName = "Baggins",
                             EmailAddress = "fb@hob.me",
-                            CustomerTypeId=1},
+                            CustomerTypeId=1,
+                            InvoiceList = invoiceRepository.Retrieve(1)
+                    },
                     new Customer()
-                          { CustomerId = 2,
-                            FirstName="Bilbo",
-                            LastName = "Baggins",
-                            EmailAddress = "bb@hob.me",
-                            CustomerTypeId=null},
+                    {
+                        CustomerId = 2,
+                        FirstName = "Bilbo",
+                        LastName = "Baggins",
+                        EmailAddress = "bb@hob.me",
+                        CustomerTypeId = null,
+                        InvoiceList = invoiceRepository.Retrieve(2)
+                    },
                     new Customer()
-                          { CustomerId = 3,
-                            FirstName="Samwise",
-                            LastName = "Gamgee",
-                            EmailAddress = "sg@hob.me",
-                            CustomerTypeId=1},
+                    {
+                        CustomerId = 3,
+                        FirstName = "Samwise",
+                        LastName = "Gamgee",
+                        EmailAddress = "sg@hob.me",
+                        CustomerTypeId = 1,
+                        InvoiceList = invoiceRepository.Retrieve(3)
+                    },
                     new Customer()
-                          { CustomerId = 4,
-                            FirstName="Rosie",
-                            LastName = "Cotton",
-                            EmailAddress = "rc@hob.me",
-                            CustomerTypeId=2}};
+                    {
+                        CustomerId = 4,
+                        FirstName = "Rosie",
+                        LastName = "Cotton",
+                        EmailAddress = "rc@hob.me",
+                        CustomerTypeId = 2,
+                        InvoiceList = invoiceRepository.Retrieve(4)
+                    }};
             return custList;
         }
 
@@ -132,6 +145,16 @@ namespace ACM.BL
             {
                 Console.WriteLine($"{item.Name} : {item.CustomerTypeName}");
             }
+
+            return query;
+        }
+
+        public IEnumerable<Customer> GetOverdueCustomers(List<Customer> customers)
+        {
+            var query = customers
+                        .SelectMany(c => c.InvoiceList
+                                        .Where(i => i.IsPaid ?? false == false),
+                                        (c,i) => c).Distinct();
 
             return query;
         }
