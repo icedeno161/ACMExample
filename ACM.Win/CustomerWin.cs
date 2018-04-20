@@ -14,7 +14,8 @@ namespace ACM.Win
     {
 
         CustomerRepository customerRepository = new CustomerRepository();
-        
+        List<Customer> customerList;
+
         public CustomerWin()
         {
             InitializeComponent();
@@ -22,7 +23,7 @@ namespace ACM.Win
 
         public void CustomerWin_Load(object sender, EventArgs e)
         {
-            var customerList = customerRepository.Retrieve();
+            customerList = customerRepository.Retrieve();
 
             CustomerComboBox.DisplayMember = "Name";
             CustomerComboBox.ValueMember = "CustomerId";
@@ -33,7 +34,7 @@ namespace ACM.Win
         {
             //CustomerGridView.DataSource = customerRepository.Retrieve();
 
-            var customerList = customerRepository.Retrieve();
+            //var customerList = customerRepository.Retrieve();
             //CustomerGridView.DataSource = customerRepository.SortByName(customerList).ToList();
 
             //CustomerGridView.DataSource = customerRepository.GetOverdueCustomers(customerList).ToList();
@@ -52,14 +53,14 @@ namespace ACM.Win
         {
             if (CustomerComboBox.SelectedValue != null)
             {
-                int customerId;
-                if (int.TryParse(CustomerComboBox.SelectedValue.ToString(), out customerId))
+                if (int.TryParse(CustomerComboBox.SelectedValue.ToString(), out int customerId))
                 {
-                    var customerList = customerRepository.Retrieve();
+                    //var customerList = customerRepository.Retrieve();
 
-                    CustomerGridView.DataSource = new List<Customer>() 
-                                {customerRepository.Find(customerList,
-                                                            customerId)};
+                    CustomerGridView.DataSource = new List<Customer>
+                                                    {
+                                                        customerRepository.Find(customerList,customerId)
+                                                    };
                 }
             }
         }

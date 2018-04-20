@@ -66,6 +66,18 @@ namespace ACM.BL
         }
 
         /// <summary>
+        /// returns a list of Customer Names and their customerId number
+        /// </summary>
+        /// <param name="customerList">list of customers</param>
+        /// <returns></returns>
+        public dynamic GetNamesAndId(List<Customer> customerList) => customerList
+                                                                        .Select(c => new
+                                                                        {
+                                                                            Name = $"{c.LastName}, {c.FirstName}",
+                                                                            c.CustomerId
+                                                                        }).ToList();
+
+        /// <summary>
         /// Returns just the names of the user in a Customer type list.
         /// </summary>
         /// <param name="customers">customer list.</param>
@@ -104,7 +116,7 @@ namespace ACM.BL
         /// </summary>
         /// <param name="customerList"> list to sort.</param>
         /// <returns>sorted listed by name.</returns>
-        public IEnumerable<Customer> SortByName(List<Customer> customerList) => customerList
+        public IEnumerable<Customer> SortByName(IEnumerable<Customer> customerList) => customerList
                                                                                 .OrderBy(c => c.LastName)
                                                                                 .ThenBy(c => c.FirstName);
         /// <summary>
@@ -146,15 +158,20 @@ namespace ACM.BL
                 Console.WriteLine($"{item.Name} : {item.CustomerTypeName}");
             }
 
-            return query;
+            return query.ToList();
         }
 
+        /// <summary>
+        /// Returns a list of customers with overdue invoices.
+        /// </summary>
+        /// <param name="customers"></param>
+        /// <returns></returns>
         public IEnumerable<Customer> GetOverdueCustomers(List<Customer> customers)
         {
             var query = customers
                         .SelectMany(c => c.InvoiceList
                                         .Where(i => i.IsPaid ?? false == false),
-                                        (c,i) => c).Distinct();
+                                        (c, i) => c).Distinct();
 
             return query;
         }
