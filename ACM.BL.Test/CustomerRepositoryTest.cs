@@ -158,10 +158,27 @@ namespace ACM.BL.Test
             //Analyze
             foreach (var item in overdueInvoices)
             {
-              TestContext.WriteLine($"{item.LastName}, {item.FirstName}");
+                TestContext.WriteLine($"{item.LastName}, {item.FirstName}");
             }
             //Assert
             Assert.IsNotNull(overdueInvoices);
+        }
+
+        [TestMethod()]
+        public void GetInvoiceTotalByCustomerTypeTest()
+        {
+            //Arrange
+            CustomerRepository customerRepository = new CustomerRepository();
+            CustomerTypeRepository customerTypeRepository = new CustomerTypeRepository();
+
+            var customerList = customerRepository.Retrieve();
+            var customerTypeList = customerTypeRepository.Retrieve();
+
+            //Act
+            var invoiceTotalByCustomerTypeList = customerRepository.GetInvoiceTotalByCustomerType(customerList, customerTypeList);
+
+            //Assert
+            Assert.IsNotNull(customerList);
         }
     }
 }

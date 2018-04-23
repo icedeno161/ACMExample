@@ -4,6 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:vms="clr-namespace:ACM.WPF.ViewModels"
+    xmlns:toolkit="http://schemas.microsoft.com/wpf/2008/toolkit"
+    xmlns:charting="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
     mc:Ignorable="d"
     d:DesignHeight="350" d:DesignWidth="500"
 	Title="Customer List">
@@ -19,6 +21,9 @@
             <RowDefinition
                 Height="Auto" />
             <!-- Data -->
+            <RowDefinition
+                Height="Auto" />
+            <!-- Graph -->
             <RowDefinition
                 Height="Auto" />
         </Grid.RowDefinitions>
@@ -75,5 +80,23 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+
+        <charting:Chart
+            Grid.Row="2"
+            Width="400"
+            Height="200">
+
+            <charting:Chart.Series>
+
+                <charting:PieSeries
+                    ItemsSource="{Binding ChartData}"
+                    DependentValuePath="Value"
+                    IndependentValuePath="Key"
+                    Title="Total Invoices By Type"
+                    IsSelectionEnabled="True" />
+
+            </charting:Chart.Series>
+
+        </charting:Chart>
     </Grid>
 </Page>

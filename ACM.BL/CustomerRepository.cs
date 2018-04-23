@@ -65,6 +65,7 @@ namespace ACM.BL
             return custList;
         }
 
+
         /// <summary>
         /// returns a list of Customer Names and their customerId number
         /// </summary>
@@ -172,6 +173,29 @@ namespace ACM.BL
                         .SelectMany(c => c.InvoiceList
                                         .Where(i => i.IsPaid ?? false == false),
                                         (c, i) => c).Distinct();
+
+            return query;
+        }
+
+        public IEnumerable<KeyValuePair<string, decimal>> GetInvoiceTotalByCustomerType(List<Customer> customers, List<CustomerType> customerTypes)
+        {
+            var customerTypeQuery = customers.Join(customerTypes,
+                                        c => c.CustomerTypeId,
+                                        ct => ct.CustomerTypeId,
+                                        (c, ct) => new
+                                        {
+                                            CustomerInstance = c,
+                                            CustomerTypeName = ct.TypeName
+                                        });
+
+            var query = customerTypeQuery.GroupBy(c => c.CustomerTypeName,
+                                    c => c.CustomerInstance.InvoiceList.Sum(i => i.TotalAmount),
+                                    (groupKey, invoicedAmount) => new KeyValuePair<string, decimal>(groupKey, invoicedAmount.Sum()));
+
+            foreach (var item in query)
+            {
+                Console.WriteLine($"{item.Key} : {item.Value:C}");
+            }
 
             return query;
         }

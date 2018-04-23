@@ -11,6 +11,8 @@ namespace ACM.WPF.ViewModels
     public class CustomerListViewModel : ViewModelBase
     {
         private ObservableCollection<CustomerModel> _Customers;
+        private List<KeyValuePair<string, decimal>> _ChartData;
+
         /// <summary>
         /// Gets or sets the list of customers to bind to the View.
         /// </summary>
@@ -22,6 +24,22 @@ namespace ACM.WPF.ViewModels
                 if (_Customers != value)
                 {
                     _Customers = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the list of data to bind to the chart.
+        /// </summary>
+        public List<KeyValuePair<string,decimal>> ChartData
+        {
+            get { return _ChartData; }
+            set
+            {
+                if (_ChartData != value)
+                {
+                    _ChartData = value;
                     NotifyPropertyChanged();
                 }
             }
@@ -63,6 +81,8 @@ namespace ACM.WPF.ViewModels
             {
                 _Customers.Add(customerInstance);
             }
+
+            ChartData = customerRepository.GetInvoiceTotalByCustomerType(customerList, customerTypeList).ToList();
         }
     }
 }
