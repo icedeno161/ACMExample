@@ -140,6 +140,11 @@ namespace ACM.BL
             return query;
         }
 
+        /// <summary>
+        /// Returns invoice total that is due grouped by paid/unpaid and month.
+        /// </summary>
+        /// <param name="invoiceList"></param>
+        /// <returns></returns>
         public dynamic GetInvoiceTotalByIsPaidAndMonth(List<Invoice> invoiceList)
         {
             var query = invoiceList.GroupBy(i => new
@@ -160,6 +165,57 @@ namespace ACM.BL
             }
 
             return query;
+        }
+
+        /// <summary>
+        /// Calculate the average discount in invoices.
+        /// </summary>
+        /// <param name="invoices"></param>
+        /// <returns></returns>
+        public decimal CalculateMean(List<Invoice> invoices) => invoices.Average(i => i.DiscountPercent);
+
+        /// <summary>
+        /// Calculate the median of Discount Percantage.
+        /// </summary>
+        /// <param name="invoices"></param>
+        /// <returns></returns>
+        public decimal CalculateMedian(List<Invoice> invoices)
+        {
+            var query = invoices.OrderBy(i => i.DiscountPercent);
+            var midpoint = query.Count() / 2;
+            decimal median;
+
+            if (IsEven(midpoint))
+            {
+
+                median = (query.ElementAt(midpoint).DiscountPercent + query.ElementAt(midpoint - 1).DiscountPercent) / 2;
+
+                return median;
+            }
+
+            median = query.ElementAt(midpoint).DiscountPercent;
+
+            return median;
+        }
+
+        /// <summary>
+        /// Calculates the mode of Discount Percentage.
+        /// </summary>
+        /// <param name="invoices"></param>
+        /// <returns></returns>
+        public decimal CalculateMode(List<Invoice> invoices) => invoices.GroupBy(inv => inv.DiscountPercent)
+                                                                        .OrderByDescending(group => group.Count())
+                                                                        .Select(group => group.Key)
+                                                                        .FirstOrDefault();
+
+        /// <summary>
+        /// Returns whether an integer is even or not.
+        /// </summary>
+        /// <param name="integer"></param>
+        /// <returns></returns>
+        private static bool IsEven(int integer)
+        {
+            return integer % 2 == 0;
         }
     }
 }

@@ -73,5 +73,56 @@ namespace ACM.BL.Test
             // Assert
             Assert.IsNotNull(invoiceList);
         }
+
+        [TestMethod()]
+        public void CalculateMeanTest()
+        {
+            //Arrange
+            InvoiceRepository invoiceRepository = new InvoiceRepository();
+            var invoiceList = invoiceRepository.Retrieve();
+
+            //Act
+            var discountMean = invoiceRepository.CalculateMean(invoiceList);
+
+            //Analyze
+            TestContext.WriteLine(discountMean.ToString());
+
+            //Assert
+            Assert.IsNotNull(invoiceList);
+        }
+
+        [TestMethod()]
+        public void CalculateMedianTest()
+        {
+            //Arrange
+            InvoiceRepository invoiceRepository = new InvoiceRepository();
+            var invoiceList = invoiceRepository.Retrieve();
+
+            //Act
+            var discountMedian = invoiceRepository.CalculateMedian(invoiceList);
+
+            //Analyze
+            TestContext.WriteLine(discountMedian.ToString());
+
+            //Assert
+            Assert.IsNotNull(invoiceList);
+        }
+
+        [TestMethod()]
+        public void CalculateModeTest()
+        {
+            //Arrange
+            InvoiceRepository invoiceRepository = new InvoiceRepository();
+            var invoiceList = invoiceRepository.Retrieve();
+
+            //Act
+            var discountMode = invoiceRepository.CalculateMode(invoiceList);
+
+            //Analyze
+            TestContext.WriteLine(discountMode.ToString());
+
+            //Assert
+            Assert.IsNotNull(invoiceList);
+        }
     }
 }
